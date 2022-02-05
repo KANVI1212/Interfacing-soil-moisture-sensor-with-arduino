@@ -1,29 +1,16 @@
-int sensor_pin = A0;
-
-int output_value ;
+const int sensor_pin = A0;  /* Soil moisture sensor O/P pin */
 
 void setup() {
-
-   Serial.begin(9600);
-
-   Serial.println("Reading From the Sensor ...");
-
-   delay(2000);
-
-   }
+  Serial.begin(9600); /* Define baud rate for serial communication */
+}
 
 void loop() {
-
-   output_value= analogRead(sensor_pin);
-
-   output_value = map(output_value,550,0,0,100);
-
-   Serial.print("Mositure : ");
-
-   Serial.print(output_value);
-
-   Serial.println("%");
-
-   delay(1000);
-
-   }
+  float moisture_percentage;
+  int sensor_analog;
+  sensor_analog = analogRead(sensor_pin);
+  moisture_percentage = ( 100 - ( (sensor_analog/1023.00) * 100 ) );
+  Serial.print("Moisture Percentage = ");
+  Serial.print(moisture_percentage);
+  Serial.print("%\n\n");
+  delay(1000);
+}
